@@ -4,7 +4,7 @@ import os
 class Registration():
 
     @staticmethod
-    def sign_up(name,email,pas):
+    def sign_up(name,email,pas):       # Duplicate Signup Prevention Logic needed.
 
         with open('users.json','r') as f:
             data = json.load(f)
@@ -101,9 +101,16 @@ class User():
         idx = 1
         l = []
         for file in files:
-            print(f"{idx}: {file}")
-            l.append(f"Quizes/{file}")
-            idx+=1
+            with open(f"Quizes/{file}",'r') as f:
+                data = json.load(f)
+            if data['author'] == self.email:
+                print(f"{idx}: {file}")   # The logic for checking that which quiz to be given to user 
+                l.append(f"Quizes/{file}")
+                idx+=1
+
+        if len(l) == 0:
+            return "You dont have any Quiz, Please create one"
+        
         user = int(input("Enter which quiz to takle: "))
         q = Quiz(l[user-1])
         q.execute()
@@ -129,10 +136,15 @@ class User():
 
 
 
-Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
-l = Registration.login('ahmad@gmail.com','1122')
+# Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
+# l = Registration.login('ahmad@gmail.com','1122')
 
+Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
+l2 = Registration.login('mustafa@gmail.com',2222)
 
-l.attempt_quiz()
+result = l2.attempt_quiz()
+print(result)
+
+# l.attempt_quiz()
 
 
