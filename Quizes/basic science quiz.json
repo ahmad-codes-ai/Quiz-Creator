@@ -1,0 +1,26 @@
+{
+    "title": "Basic Science Quiz",
+    "questions": [
+        {
+            "question": "Which gas do humans primarily breathe in to survive?",
+            "options": [
+                "Carbon Dioxide",
+                "Hydrogen",
+                "Oxygen",
+                "Nitrogen"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "What happens to liquid water when it is placed in a freezer?",
+            "options": [
+                "It turns into gas",
+                "It turns into solid ice",
+                "It vanishes completely",
+                "It boils"
+            ],
+            "answer": 1
+        }
+    ],
+    "author": "ahmad@gmail.com"
+}
