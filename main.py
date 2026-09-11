@@ -28,6 +28,11 @@ class Registration():
 class Quiz():
     def __init__(self,file):
         self.file_path = file
+        self.total = 0
+        self.correct = 0
+        self.incorrect = 0
+        self.name = ""
+        self.points = 0
 
     def execute(self):
         with open(self.file_path,'r') as f:
@@ -37,11 +42,7 @@ class Quiz():
         for q in data['questions']:
             answers.append(q['answer'])
 
-        correct = 0
-        total = 0
-        incorrect = 0
-        name = data['title']
-        points = 0
+        self.name = data['title']
 
         idx = 0
         for q in data['questions']:
@@ -54,28 +55,27 @@ class Quiz():
 
             user = int(input("Enter Your answer: "))
             if user - 1 == answers[idx]:
-                correct+=1
+                self.correct+=1
                 print("Correct")
             else:
-                incorrect+=1
+                self.incorrect+=1
                 print("Incorrect")
-            total+=1
+            self.total+=1
             idx+=1
 
-        points+= correct * 2
+        self.points+= self.correct * 2
 
+    def get_stats(self):
+        p = (self.correct / self.total) * 100
         d = {
-            'name':name,
-            'total':total,
-            'correct':correct,
-            'incorrect': incorrect,
-            'points':points
+            'name':self.name,
+            'total':self.total,
+            'correct':self.correct,
+            'incorrect':self.incorrect,
+            'points':self.points,
+            'percentage':p
         }
-
         return d
-        
-        
-        
 
 
 class User():
@@ -83,8 +83,7 @@ class User():
         self.name = name
         self.email = email
         self.pas = pas
-        self.score = 0
-        self.quizes = []
+        self.stats = None
 
     def get_score(self):
         return self.score
@@ -108,6 +107,27 @@ class User():
         user = int(input("Enter which quiz to takle: "))
         q = Quiz(l[user-1])
         q.execute()
+        self.stats = q.get_stats()
+
+        with open('all_users_stats.json','r') as f:
+            data = json.load(f)
+
+        if self.email in data:
+            data[self.email]['total_score']+=self.stats['points']
+            data[self.email]['quizzes_taken']+=1
+            data[self.email]['history'].append({'quiz':self.stats['name'], 'percentage':self.stats['percentage']})
+        else:
+            data[self.email] = {
+                'name':self.name,
+                'total_score':self.stats['points'],
+                'quizzes_taken':1,
+                'history':[{'quiz':self.stats['name'], 'percentage':self.stats['percentage']}]
+            }
+
+        with open('all_users_stats.json','w') as f:
+            json.dump(data,f,indent=4)
+
+
 
 Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
 l = Registration.login('ahmad@gmail.com','1122')

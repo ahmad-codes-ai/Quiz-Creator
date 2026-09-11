@@ -1,0 +1,13 @@
+{
+    "ahmad@gmail.com": {
+        "name": "Ahmad",
+        "total_score": 2,
+        "quizzes_taken": 1,
+        "history": [
+            {
+                "quiz": "Basic Science Quiz",
+                "percentage": 50.0
+            }
+        ]
+    }
+}
