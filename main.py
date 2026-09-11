@@ -5,14 +5,19 @@ class Registration():
 
     @staticmethod
     def sign_up(name,email,pas):       # Duplicate Signup Prevention Logic needed.
-
+        
         with open('users.json','r') as f:
             data = json.load(f)
+
+        for user in data['main_list']['email']:
+            if user == email:
+                return False
 
         data['main_list'].append({'name':name,'email':email,'pass':pas})
 
         with open('users.json','w') as f:
             json.dump(data,f,indent=4)
+            return True
 
     @staticmethod
     def login(email,pas):
