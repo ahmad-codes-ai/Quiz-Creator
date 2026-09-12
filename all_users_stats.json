@@ -13,5 +13,16 @@
                 "percentage": 50.0
             }
         ]
+    },
+    "mustafa@gmail.com": {
+        "name": "Mustafa",
+        "total_score": 6,
+        "quizzes_taken": 1,
+        "history": [
+            {
+                "quiz": "General Knowledge Quiz",
+                "percentage": 100.0
+            }
+        ]
     }
 }

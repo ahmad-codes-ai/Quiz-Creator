@@ -9,8 +9,8 @@ class Registration():
         with open('users.json','r') as f:
             data = json.load(f)
 
-        for user in data['main_list']['email']:
-            if user == email:
+        for user in data['main_list']:
+            if user['email'] == email:
                 return False
 
         data['main_list'].append({'name':name,'email':email,'pass':pas})
@@ -140,16 +140,74 @@ class User():
             json.dump(data,f,indent=4)
 
 
+class Leaderboard():
 
+    @staticmethod
+    def rank_total_score():
+        with open('all_users_stats.json','r') as f:
+            data = json.load(f)
+
+        d = {}
+        for user in data:
+            d[user] = data[user]['total_score']
+
+        sorted_d = dict(sorted(d.items(), key=lambda item: item[1], reverse=True))
+        return sorted_d
+
+    @staticmethod
+    def rank_quizes_taken():
+        with open('all_users_stats.json','r') as f:
+            data = json.load(f)
+
+        d = {}
+        for user in data:
+            d[user] = data[user]['quizzes_taken']
+
+        sorted_d = dict(sorted(d.items(), key=lambda item: item[1], reverse=True))
+        return sorted_d 
+
+    @staticmethod
+    def rank_performance():
+        with open('all_users_stats.json','r') as f:
+            data = json.load(f)
+
+        d = {}
+
+        for user in data:
+            d[user] = [0,0]
+            for p in data[user]['history']:
+                d[user][0]+=1
+                d[user][1]+=p['percentage']
+
+        final_data = {}
+
+        for user in d:
+            avg = d[user][1] / d[user][0]
+            final_data[user] = avg
+
+        sorted_final = dict(sorted(final_data.items(), key=lambda item: item[1], reverse=True))
+        return sorted_final
+
+    
 # Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
 # l = Registration.login('ahmad@gmail.com','1122')
 
-Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
-l2 = Registration.login('mustafa@gmail.com',2222)
+# Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
+# l2 = Registration.login('mustafa@gmail.com',2222)
 
-result = l2.attempt_quiz()
-print(result)
+# # result = l2.attempt_quiz()
+# # print(result)
 
-# l.attempt_quiz()
+# user = input("Enter jason: ")
+# l2.add_quiz(user)
 
+# l2.attempt_quiz()
 
+# result = Leaderboard.rank_total_score()
+# result2 = Leaderboard.rank_quizes_taken()
+
+# print(result)
+# print(result2)
+
+r = Leaderboard.rank_performance()
+print(r)
