@@ -93,9 +93,43 @@ class User():
     def get_score(self):
         return self.score
 
+    def share_quiz(self):
+        all_quizes = os.listdir('Quizes')
+
+        paths = []
+        for quiz in all_quizes:
+            idx = 1
+            path = f"Quizes/{quiz}"
+            with open(path,'r') as f:
+                data = json.load(f)
+
+            if self.email in data['authors']:
+                print(f"{idx}: {data['title']}")
+                paths.append(path)
+                idx+=1
+
+        user = int(input("Enter which file you want to share: "))
+        code = input("Create a code to share this file: ")
+        
+        
+        file = paths[user-1]
+
+        with open('shared_files.json','r') as f:
+            data = json.load(f)
+
+        if file in data:
+            print(f"File is already shared and have a code: {data[file]}")
+            return False
+
+        data[file] = code
+
+        with open('shared_files.json','w') as f:
+            json.dump(data,f,indent=4)
+
+
     def add_quiz(self,jason):
         data = json.loads(jason)
-        data['author'] = self.email
+        data['authors'] = [self.email]
         path = f"Quizes/{data['title'].lower().strip()}.json"
 
         with open(path,'w') as f:
@@ -108,7 +142,7 @@ class User():
         for file in files:
             with open(f"Quizes/{file}",'r') as f:
                 data = json.load(f)
-            if data['author'] == self.email:
+            if self.email in data['authors']:
                 print(f"{idx}: {file}")   # The logic for checking that which quiz to be given to user 
                 l.append(f"Quizes/{file}")
                 idx+=1
@@ -189,8 +223,11 @@ class Leaderboard():
         return sorted_final
 
     
-# Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
-# l = Registration.login('ahmad@gmail.com','1122')
+Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
+l = Registration.login('ahmad@gmail.com','1122')
+
+l.share_quiz()
+
 
 # Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
 # l2 = Registration.login('mustafa@gmail.com',2222)
@@ -209,5 +246,5 @@ class Leaderboard():
 # print(result)
 # print(result2)
 
-r = Leaderboard.rank_performance()
-print(r)
+# r = Leaderboard.rank_performance()
+# print(r)
