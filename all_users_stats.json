@@ -20,9 +20,17 @@
     },
     "mustafa@gmail.com": {
         "name": "Mustafa",
-        "total_score": 6,
-        "quizzes_taken": 1,
+        "total_score": 18,
+        "quizzes_taken": 3,
         "history": [
+            {
+                "quiz": "General Knowledge Quiz",
+                "percentage": 100.0
+            },
+            {
+                "quiz": "General Knowledge Quiz",
+                "percentage": 100.0
+            },
             {
                 "quiz": "General Knowledge Quiz",
                 "percentage": 100.0

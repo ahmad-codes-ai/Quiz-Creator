@@ -126,6 +126,26 @@ class User():
         with open('shared_files.json','w') as f:
             json.dump(data,f,indent=4)
 
+    def load_quiz(self):
+        u_code = input("Enter the code of which quiz you wanna load: ")
+
+        with open('shared_files.json') as f:
+            data = json.load(f)
+
+        for file,code in data.items():
+            if code == u_code:
+
+                with open(file,'r') as f:
+                    content = json.load(f)
+
+                content['authors'].append(self.email)
+
+
+                with open(file,'w') as f:
+                    json.dump(content,f,indent=4)
+
+                return True
+        return False
 
     def add_quiz(self,jason):
         data = json.loads(jason)
@@ -223,14 +243,19 @@ class Leaderboard():
         return sorted_final
 
     
-Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
-l = Registration.login('ahmad@gmail.com','1122')
+# Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
+# l = Registration.login('ahmad@gmail.com','1122')
 
-l.share_quiz()
+# l.share_quiz()
 
 
-# Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
-# l2 = Registration.login('mustafa@gmail.com',2222)
+Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
+l2 = Registration.login('mustafa@gmail.com',2222)
+
+# r = l2.load_quiz()
+# print(r)
+
+l2.attempt_quiz()
 
 # # result = l2.attempt_quiz()
 # # print(result)
