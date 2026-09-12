@@ -4,6 +4,16 @@
             "name": "Admin",
             "email": "admin@gmail.com",
             "pass": "1122"
+        },
+        {
+            "name": "mustafa",
+            "email": "mustafa@gmail.com",
+            "pass": "1122"
+        },
+        {
+            "name": "Ahmad",
+            "email": "ahmad@gmail.com",
+            "pass": "1111"
         }
     ]
 }

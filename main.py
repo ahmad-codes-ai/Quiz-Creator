@@ -367,33 +367,3 @@ app = App()
 
 app.run()
 
-# # Registration.sign_up('Ahmad','ahmad@gmail.com','1122')
-# # l = Registration.login('ahmad@gmail.com','1122')
-
-# # l.share_quiz()
-
-
-# Registration.sign_up('Mustafa','mustafa@gmail.com',2222)
-# l2 = Registration.login('mustafa@gmail.com',2222)
-
-# # r = l2.load_quiz()
-# # print(r)
-
-# l2.attempt_quiz()
-
-# # # result = l2.attempt_quiz()
-# # # print(result)
-
-# # user = input("Enter jason: ")
-# # l2.add_quiz(user)
-
-# # l2.attempt_quiz()
-
-# # result = Leaderboard.rank_total_score()
-# # result2 = Leaderboard.rank_quizes_taken()
-
-# # print(result)
-# # print(result2)
-
-# # r = Leaderboard.rank_performance()
-# # print(r)

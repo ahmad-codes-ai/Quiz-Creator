@@ -1,3 +1,0 @@
-l = []
-
-print(len(l))
